@@ -1,0 +1,10 @@
+{
+	"workers":{
+		"topics": {
+			"newObstacles": {
+				"msg": "mapupdates.msg.NewObstacles",
+				"type": "subscriber"
+			}
+		}
+	}
+}

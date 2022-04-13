@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+    
+    <rosparam command="load" file="$(find tracking)/config/config.yaml"/>
+    
+    <node pkg="tracking" type="tracking_from_cameras" name="tracking_from_cameras" args= "" output="screen" />
+    
+    <!-- Run FIROS --> 
+    <node name="firos" pkg="firos" type="core.py" />
+
+</launch>
+ 

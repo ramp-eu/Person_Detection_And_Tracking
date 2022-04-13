@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<Rcam_map type_id="opencv-matrix">
+  <rows>3</rows>
+  <cols>3</cols>
+  <dt>f</dt>
+  <data>
+    4.0167909061871876e-01 2.1749759494296594e-01
+    -8.8957782366341887e-01 8.9152042778182072e-01
+    1.2923561923020815e-01 4.3415375337534967e-01 2.0939253808920300e-01
+    -9.6746728674214622e-01 -1.4199230287713321e-01</data></Rcam_map>
+<tcam_map type_id="opencv-matrix">
+  <rows>3</rows>
+  <cols>1</cols>
+  <dt>f</dt>
+  <data>
+    3.7368790725399085e+03 -2.8587806539539984e+03
+    2.4365483633495796e+03</data></tcam_map>
+</opencv_storage>

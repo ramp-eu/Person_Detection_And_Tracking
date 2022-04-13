@@ -1,0 +1,14 @@
+tracking:
+    h_cam1: 1
+    h_cam2: 2
+    exp_t1: 30
+    exp_t2: 30
+    fps: 13
+    cameras_calibration: "/catkin_ws/src/tracking/data/config_data_cam1&cam2_v3.xml"
+    camera_map_calibration: "/catkin_ws/src/tracking/data/H_map_cam1.xml"
+    yolo_classes_file: "/catkin_ws/src/tracking/data/YOLO/coco.names"
+    yolo_model_file: "/catkin_ws/src/tracking/data/YOLO/yolov3.cfg"
+    yolo_weights_file: "/catkin_ws/src/tracking/data/YOLO/yolov3.weights"
+    openpose_model_txt_file: "/catkin_ws/src/tracking/data/OPENPOSE/pose_deploy_linevec_faster_4_stages.prototxt"
+    openpose_model_bin_file: "/catkin_ws/src/tracking/data/OPENPOSE/pose_iter_146000.caffemodel"
+    video_result_path: "/catkin_ws/src/tracking/result/tracking.avi"
