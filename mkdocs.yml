@@ -1,6 +1,6 @@
-site_name: <site-name>
-site_url: https://<site-url>
-repo_url: https://github.com/<repo_url>
+site_name: Person_Detection_And_Tracking module
+site_url: https://github.com/ramp-eu/Person_Detection_And_Tracking
+repo_url: https://github.com/ramp-eu/Person_Detection_And_Tracking
 site_description: RAMP Documentation
 docs_dir: docs
 site_dir: html
@@ -13,7 +13,6 @@ pages:
   - 'Getting Started' : 'getting-started.md'
   - 'User & Programmers Manual':
     - 'Architecture' : 'architecture.md'
-    - 'API' : 'api.md'
     - 'User Guide': 'usermanual.md'
   - 'Installation & Administration Manual': 
     - 'Installation Guide': 'installationguide.md'

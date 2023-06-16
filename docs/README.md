@@ -1,84 +1,40 @@
-# Mid-Term Review
+# Person Detection And Tracking
+
+The `Person Detection and Tracking` is based on 2D color images from cameras installed in environment and it is intended to monitor the shared spaces between humans and robots.
 
 ## Contents
 
--   [Background](#background)
-    -   [Use Case Description](#use-case-description)
-    -   [Proposed Solution](#proposed-solution)
--   [Mid-Term Setup Implementation Description](#mid-term-setup-implementation-description)
--   [Demo](#demo)
-    -   [Install](#install)
-    -   [Usage](#usage)
-    -   [API](#api)
-    -   [Testing](#testing)
--   [License](#license)
+- [Person Detection And Tracking](#title)
+  - [Contents](#contents)
+  - [Background](#background)
+  - [Install](#install)
+  - [Usage](#usage)
+  - [License](#license)
 
 ## Background
 
-#### Use Case Description
+The `Person Detection And Tracking` allows to detect people and track them using stereo pairs, obtaining the pose of each person detected in the navigation map. It requires a metric map to update dynamically the occupancy grid, information that could be used to implement local path planning to avoid dynamically occupied places, or it could be used to know the busy areas in the shopfloor for a better deployment of mobile platforms and optimization of available resources.
 
-#### Proposed Solution
+Image processing is based on `YOLO` (more info [here](https://arxiv.org/abs/1506.02640)), used to identify persons in every image acquired from different sources. The Regions of Interest obtained with `YOLO` from every image are paired using a combination on geometric computation and tracking using Minimum Output Sum of Squared Error (MOSSE) for disambiguation when required. The pose obtained is translated to the occupancy grid.
 
-## Setup Overview
-```
-Overview the Docker-Based Implementation contributed in this Setup (This section is associated with the slide "Setup Overview: Docker-based Implementation" in D3)
-```
+### Objetives
 
-#### Architecture
-A more detailed description of this architecture is available here [Architecture Description](architecture.md)
-```
-(This section is associated with the slide "Setup Overview: Architecture" in D3)
-```
+- Detect people in 2D images from environment cameras
+- Extract the pose of every person using stereo pairs
+- Track persons and translate it to occupancy grid
 
-```
-Background information and links to relevant terms
-```
-## Demo
-#### Install
-In order to install the components of our demo, follow the instructions provided in this file: [Installation & Administration Guide](installationguide.md)
-```
-Within the docs folder, the "installationguide.md" is to be filled with information on how to install the demo components
-and their dependencies.
+![Objetive](./images/tracking.gif)
 
-A convenient simulator or simulated/dummy datasets will be contributed when the source code, binaries, and/or functionality
-of a given component cannot be shared as part of the public demo due to privacy- or deployment-related issues.
-```
+## Install
 
-#### Usage
-Information about how to use the demo components can be found in the [User & Programmers Manual](usermanual.md).
-```
-Within the docs folder, the "installationguide.md" is to be filled with information on how to use and configure the
-components of the demo.
-```
+Information about how to install the `Person Detection And Tracking` can be found at the corresponding section of the
+[Installation & Administration Guide](installationguide.md).
 
-#### API
-Detailed descriptions of the demo component APIs are available in the [API documentation](api.md) 
-```
-Within the docs folder, the "api.md" is to be filled with the definition of component APIs.
+## Usage
 
-Special emphasis will be put on the description of NGSI APIs, providing tas many details as possible on the 
-the subscriptions, registrations, requests, and responses associated with each component of the demo. 
+Information about how to use the `Person Detection And Tracking` can be found in the [User & Programmers Manual](usermanual.md). 
 
-Non-NGSI APIs will be fully described only if they define an interface to an NGSI-Compliant component.
-
-Non-NGSI APIs in charge of enabling interfaces between components that are totally opaque from the NGSI
-point of view will be listed and/or shortly described if they are of relevance to understand, install or
-use the demo.
-```
-
-#### Testing
-
-```
-This section will contribute step-by-step procedures to perform a basic end-to-end test of the setup 
-features described in the mid-term review demo. For each test, the definition of the step-by-tep procedure
-may consist of:
-- Description of the use case that the test aim to cover
-- Definition of the required inputs and steps to retrieve meaningful outputs
-- A convenient simulator or simulated/dummy datasets to validate the use case in cases where the source 
-code, binaries, and/or functionality of a given component cannot be shared as part of the public demo.
-```
-
-
+Initially, the system is designed to work with [IDS cameras](http://wiki.ros.org/ueye_cam) but can be adapted to any ROS package that publishes a topic of the type `sensor_msgs::Image`. Just replace the `ueye_cam/ueye_cam_nodelet` in the `src/camera_tracker/launch/tracking_nodelet.launch`.
 
 ## License
 

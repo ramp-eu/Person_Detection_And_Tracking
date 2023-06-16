@@ -1,0 +1,5 @@
+<library path="lib/libcamera_tracker_nodelet">
+  <class name="camera_tracker/camera_tracker_nodelet" type="camera_tracker::CameraTrackerNodelet" base_class_type="nodelet::Nodelet">
+  <description>Camera tracker</description>
+  </class>
+</library>

@@ -1,0 +1,11 @@
+tracking:
+    h_cam1: 1
+    h_cam2: 2
+    exp_t1: 40.0
+    exp_t2: 40.0
+    fps: 13.0
+    timer_rate: 0.01
+    cameras_calibration: "/root/catkin_ws/devel/share/camera_tracker/data/config_data_cam1_cam2.xml"    
+    yolo_classes_file: "/root/catkin_ws/devel/share/camera_tracker/data/YOLO/coco.names"
+    yolo_model_file: "/root/catkin_ws/devel/share/camera_tracker/data/YOLO/yolov3.cfg"
+    yolo_weights_file: "/root/catkin_ws/devel/share/camera_tracker/data/YOLO/yolov3.weights"

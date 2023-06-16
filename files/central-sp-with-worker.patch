@@ -1,0 +1,118 @@
+diff --git a/docker/centralSPdocker/FIROS_config_centralSPgraph/robots.json b/docker/centralSPdocker/FIROS_config_centralSPgraph/robots.json
+index e0b312f..06a29a5 100644
+--- a/docker/centralSPdocker/FIROS_config_centralSPgraph/robots.json
++++ b/docker/centralSPdocker/FIROS_config_centralSPgraph/robots.json
+@@ -34,5 +34,13 @@
+                 "type": "publisher"
+             }
+         }
++    },
++    "worker":{
++        "topics": {
++            "newObstacles": {
++                "msg": "mapupdates.msg.NewObstacles",
++                "type": "publisher"
++            }
++        }
+     }
+ }
+diff --git a/docker/centralSPdocker/FIROS_config_centralSPgraph/whitelist.json b/docker/centralSPdocker/FIROS_config_centralSPgraph/whitelist.json
+index 2e66fc1..d54537c 100644
+--- a/docker/centralSPdocker/FIROS_config_centralSPgraph/whitelist.json
++++ b/docker/centralSPdocker/FIROS_config_centralSPgraph/whitelist.json
+@@ -14,5 +14,9 @@
+     "robot_2": {
+         "subscriber": [],
+         "publisher": ["newObstacles"]
++    },
++    "worker": {
++        "subscriber": [],
++        "publisher": ["newObstacles"]
+     }
+ }
+diff --git a/src/maptogridmap/src/main.cpp b/src/maptogridmap/src/main.cpp
+index 6fa6197..5918cdf 100644
+--- a/src/maptogridmap/src/main.cpp
++++ b/src/maptogridmap/src/main.cpp
+@@ -14,6 +14,7 @@ int cycle_number;
+ mapupdates::NewObstacles obstacles;
+ mapupdates::NewObstacles obstacles1; //for robot_1
+ mapupdates::NewObstacles obstacles2; //for robot_2
++mapupdates::NewObstacles obstacles3; //for worker
+ maptogridmap::Annotations annotations;
+ maptogridmap::Graph graph;
+ 
+@@ -149,6 +150,18 @@ void newObstaclesCallback2(const mapupdates::NewObstaclesConstPtr &msg)
+ 	}
+ }
+ 
++void newObstaclesCallback3(const mapupdates::NewObstaclesConstPtr &msg)
++{
++	//	std::cout << msg->x.size()<<std::endl;
++	obstacles3.x.clear();
++	obstacles3.y.clear();
++	for (uint i = 0; i < msg->x.size(); i++)
++	{
++		obstacles3.x.push_back(msg->x[i]);
++		obstacles3.y.push_back(msg->y[i]);
++	}
++}
++
+ int readAnnotations(std::string annotation_file)
+ {
+ 	char *word;
+@@ -524,6 +537,7 @@ int main(int argc, char **argv)
+ 	ros::Subscriber gmu_sub = nh.subscribe("/robot_0/newObstacles", 1, newObstaclesCallback);
+ 	ros::Subscriber gmu_sub1 = nh.subscribe("/robot_1/newObstacles", 1, newObstaclesCallback1);
+ 	ros::Subscriber gmu_sub2 = nh.subscribe("/robot_2/newObstacles", 1, newObstaclesCallback2);
++	ros::Subscriber gmu_sub3 = nh.subscribe("/worker/newObstacles", 1, newObstaclesCallback3);
+ 	ros::Subscriber annt_sub = nh.subscribe("/annotation/goal", 1, newAnnotationCallback);
+ 
+ 	VisualizationPublisherGM visualGM(nh);
+@@ -653,6 +667,19 @@ int main(int argc, char **argv)
+ 				}
+ 			}
+ 		}
++		for (uint i = 0; i < obstacles3.x.size(); i++)
++		{
++			ii = (int)floor((obstacles3.x[i] - xorigin) / cellsize);
++			jj = (int)floor((obstacles3.y[i] - yorigin) / cellsize);
++			if (ii >= 0 && jj >= 0 && ii < sizex && jj < sizey)
++			{
++				if ((gmap[ii][jj].occupancy <= 50))
++				{
++					gmap[ii][jj].occupancy = 100;
++					update_nodes_edges = 1;
++				}
++			}
++		}
+ 
+ 		for (int i = 0; i < sizex; i++)
+ 		{
+@@ -787,6 +814,12 @@ void VisualizationPublisherGM::visualizationduringmotion()
+ 		p.y = obstacles2.y[i];
+ 		glp.points.push_back(p);
+ 	}
++	for (uint i = 0; i < obstacles3.x.size(); i++)
++	{
++		p.x = obstacles3.x[i];
++		p.y = obstacles3.y[i];
++		glp.points.push_back(p);
++	}
+ 	if (glp.points.size() > 0)
+ 		globalpoints_pub.publish(glp);
+ 
+diff --git a/test/docker_compose_files/Central_SP_docker/docker-compose.yml b/test/docker_compose_files/Central_SP_docker/docker-compose.yml
+index f752a98..0990b89 100644
+--- a/test/docker_compose_files/Central_SP_docker/docker-compose.yml
++++ b/test/docker_compose_files/Central_SP_docker/docker-compose.yml
+@@ -29,7 +29,8 @@ services:
+     sp:
+         restart: always
+ #        image: docker.ramp.eu/opil/opil.sw.sp.central:3.1.6
+-        image: centralsp:test
++#       image: centralsp:test
++        image: centralsp:test-w # with worker
+         volumes:
+             #- path on the host : path inside the container
+             - /tmp/.X11-unix:/tmp/.X11-unix:rw

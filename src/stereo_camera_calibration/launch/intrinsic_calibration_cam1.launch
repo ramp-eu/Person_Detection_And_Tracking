@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- <launch>
+    <env name="ROSCONSOLE_CONFIG_FILE" value="$(find stereo_camera_calibration)/config/rosconsole.config"/>
+    <rosparam command="load" file="$(find stereo_camera_calibration)/config/config.yaml"/>
+    <node pkg="stereo_camera_calibration" type="intrinsic_calibration_node" name="intrinsic_calibration" args= "" output="screen" />
+</launch> -->
+
+
+<launch>
+    <param name="/stereo_camera_calibration/calibration/intrinsic/images_path" type="str"    value="/root/data/intrinsic/input/images_1/" />
+    <param name="/stereo_camera_calibration/calibration/intrinsic/output_file" type="str"    value="/root/data/stereo/input/config_data_cam1.xml"/>
+    <param name="/stereo_camera_calibration/calibration/number_of_centers_x"   type="int"    value="9" />
+    <param name="/stereo_camera_calibration/calibration/number_of_centers_y"   type="int"    value="6" />
+    <param name="/stereo_camera_calibration/calibration/square_size"           type="double" value="37.0" />
+
+    <node pkg="stereo_camera_calibration" type="intrinsic_calibration_node" name="intrinsic_calibration_cam1" args= "" output="screen"/>
+</launch>

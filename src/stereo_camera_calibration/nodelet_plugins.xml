@@ -1,0 +1,11 @@
+<library path="lib/libstereo_camera_recorder_nodelet">
+  <class name="stereo_camera_calibration/stereo_camera_recorder_nodelet" type="stereo_camera_calibration::StereoCameraRecorderNodelet" base_class_type="nodelet::Nodelet">
+  <description>Stereo camera recorder</description>
+  </class>
+</library>
+
+<library path="lib/libmono_camera_recorder_nodelet">
+  <class name="stereo_camera_calibration/mono_camera_recorder_nodelet" type="stereo_camera_calibration::MonoCameraRecorderNodelet" base_class_type="nodelet::Nodelet">
+  <description>Mono camera recorder</description>
+  </class>
+</library>

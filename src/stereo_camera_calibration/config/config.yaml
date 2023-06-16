@@ -1,0 +1,35 @@
+stereo_camera_calibration:
+  record:
+    video_path_1: "/root/data/stereo/input/video_1.avi"
+    video_path_2: "/root/data/stereo/input/video_2.avi"
+    images_path_1: "/root/data/intrinsic/input/images_1/"
+    images_path_2: "/root/data/intrinsic/input/images_2/"
+    cam_1_width: 2048
+    cam_1_height: 1088
+    cam_2_width: 2048
+    cam_2_height: 1088
+    fps: 13.0
+
+  calibration:
+    # common
+    number_of_centers_x: 9
+    number_of_centers_y: 6
+    #square_size: 58.0
+    square_size: 37.0
+
+    # intrinsic calibration (only for instrinsic_calibration.launch)
+    #intrinsic:
+    #  images_path: "/root/data/intrinsic/input/images/" #"/root/data/intrinsic/input/images_1/"
+    #  output_file: "/root/data/intrinsic/output/intrinsic_calibration.xml" #"/root/data/stereo/input/config_data_cam1.xml"
+
+    # stereo calibration
+    stereo:
+      min_frame: 0
+      max_frame: 0
+      cam_1_calibration_file: "/root/data/stereo/input/config_data_cam1.xml"
+      cam_2_calibration_file: "/root/data/stereo/input/config_data_cam2.xml"
+      cam_1_video_file:       "/root/data/stereo/input/video_1.avi"
+      cam_2_video_file:       "/root/data/stereo/input/video_2.avi"
+      output_path:            "/root/data/stereo/output/"
+      output_file:            "/root/catkin_ws/devel/share/camera_tracker/data/config_data_cam1_cam2.xml" 
+      #output_file:            "/root/data/stereo/output/calibration.xml"
